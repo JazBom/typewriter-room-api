@@ -4,8 +4,9 @@ class CreateTextItems < ActiveRecord::Migration[6.1]
       t.string :text
       t.boolean :published
       t.integer :writer_id
+      t.index :writer_id
       t.integer :inspiration_id
-
+      t.index :inspiration_id
       t.timestamps
     end
   end
