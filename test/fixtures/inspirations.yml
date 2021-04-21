@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  [sentence: MyString
+  string,: MyString
+  sentenceOf: MyString
+  string,: MyString
+  imageUrl: MyString
+  string,: MyString
+  imageOf: MyString
+  string]: MyString
+
+two:
+  [sentence: MyString
+  string,: MyString
+  sentenceOf: MyString
+  string,: MyString
+  imageUrl: MyString
+  string,: MyString
+  imageOf: MyString
+  string]: MyString
