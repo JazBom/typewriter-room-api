@@ -1,28 +1,29 @@
 require "test_helper"
 
 class TextItemsControllerTest < ActionDispatch::IntegrationTest
-  test "should get index" do
+
+  test "should get text_item by index" do
     get text_items_index_url
     assert_response :success
   end
 
-  test "should get create" do
-    get text_items_create_url
+  test "should create text_item" do
+    post text_items_create_url
     assert_response :success
   end
 
-  test "should get show" do
+  test "should show text_item" do
     get text_items_show_url
     assert_response :success
   end
 
-  test "should get update" do
-    get text_items_update_url
+  test "should update text_item" do
+    put text_items_update_url
     assert_response :success
   end
 
-  test "should get destroy" do
-    get text_items_destroy_url
+  test "should destroy text_item" do
+    delete text_items_destroy_url
     assert_response :success
   end
 

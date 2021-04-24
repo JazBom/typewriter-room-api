@@ -1,28 +1,28 @@
 require "test_helper"
 
 class InspirationsControllerTest < ActionDispatch::IntegrationTest
-  test "should get index" do
+  test "should get inspiration by index" do
     get inspirations_index_url
     assert_response :success
   end
 
-  test "should get create" do
-    get inspirations_create_url
+  test "should create inspiration" do
+    post inspirations_create_url
     assert_response :success
   end
 
-  test "should get show" do
+  test "should show inspiration" do
     get inspirations_show_url
     assert_response :success
   end
 
-  test "should get update" do
-    get inspirations_update_url
+  test "should update inspiration" do
+    put inspirations_update_url
     assert_response :success
   end
 
-  test "should get destroy" do
-    get inspirations_destroy_url
+  test "should destroy inspiration" do
+    delete inspirations_destroy_url
     assert_response :success
   end
 

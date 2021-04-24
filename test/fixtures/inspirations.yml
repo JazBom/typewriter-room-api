@@ -1,21 +1,14 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+inspiration_one:
+  id: 1
+  sentence: "it was the best of times, it was the worst of times..."
+  sentenceOf: "charles dickens"
+  imageUrl: "https://i.imgur.com/LTeu8Pr.jpg"
+  imageOf: "coffee"
 
-one:
-  [sentence: MyString
-  string,: MyString
-  sentenceOf: MyString
-  string,: MyString
-  imageUrl: MyString
-  string,: MyString
-  imageOf: MyString
-  string]: MyString
-
-two:
-  [sentence: MyString
-  string,: MyString
-  sentenceOf: MyString
-  string,: MyString
-  imageUrl: MyString
-  string,: MyString
-  imageOf: MyString
-  string]: MyString
+inspiration_two:
+  id: 2
+  sentence: "ich bin ein berliner"
+  sentenceOf: "john f kennedy"
+  imageUrl: "https://i.imgur.com/hiJzNhh.jpg"
+  imageOf: "art in the uffizi gallery"

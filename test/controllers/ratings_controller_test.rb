@@ -1,28 +1,28 @@
 require "test_helper"
 
 class RatingsControllerTest < ActionDispatch::IntegrationTest
-  test "should get index" do
+  test "should get rating by index" do
     get ratings_index_url
     assert_response :success
   end
 
-  test "should get create" do
-    get ratings_create_url
+  test "should create rating" do
+    post ratings_create_url
     assert_response :success
   end
 
-  test "should get show" do
+  test "should show rating" do
     get ratings_show_url
     assert_response :success
   end
 
-  test "should get update" do
-    get ratings_update_url
+  test "should update rating" do
+    put ratings_update_url
     assert_response :success
   end
 
-  test "should get destroy" do
-    get ratings_destroy_url
+  test "should destroy rating" do
+    delete ratings_destroy_url
     assert_response :success
   end
 

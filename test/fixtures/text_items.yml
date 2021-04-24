@@ -1,21 +1,66 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  [: MyString
-  writer: MyString
-  integer,: MyString
-  text: MyString
-  string,: MyString
-  published: MyString
-  boolean: MyString
-  ]: MyString
+# EXAMPLE of using labels
+# complicated -->
+### in fruit.rb
+# belongs_to :eater, polymorphic: true
+### in fruits.yml
+# apple:
+#   id: 1
+#   name: apple
+#   eater_id: 1
+#   eater_type: Monkey
+# easier -->
+#apple:
+  # eater: george (Monkey)
 
-two:
-  [: MyString
-  writer: MyString
-  integer,: MyString
-  text: MyString
-  string,: MyString
-  published: MyString
-  boolean: MyString
-  ]: MyString
+text_item_one:
+  id: 1
+  text: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
+  published: false
+  writer: jess (User)
+
+text_item_two:
+  id: 2
+  text: "Lorem Ipsum: Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
+  published: true
+  writer: colin (User)
+
+# EXAMPLE OF OMAP
+ # --- !omap
+# - parent:
+#     id:         1
+#     parent_id:  NULL
+#     title:      Parent
+# - child:
+#     id:         2
+#     parent_id:  1
+#     title:      Child
+# --- !omap
+# - text_item_one:
+#   id: 1
+#   text: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
+#   published: false
+#   writer_id: 1
+#   inspiration_id: 1
+# - user_one:
+#   id: 1
+#   name: 'Jess'
+#   password: 'blah'
+#   writer_id: 1
+
+# --- !omap
+# - text_item_two:
+#   id: 2
+#   text: "Lorem ipsum: Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
+#   published: true
+#   writer_id: 2
+#   inspiration_id: 2
+# - - user_two:
+  # id: 2
+  # name: 'Colin'
+  # password: 'meh'
+  # writer_id: 2
+#   
+
+

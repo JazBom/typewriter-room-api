@@ -4,23 +4,24 @@ class Api::RatingsController < ApplicationController
   end
 
   def create
-    rating = Rating.create(rating_params)
-    if rating.valid?
-      render json: rating, status: 201
+    text_item = TextItem.find(params[:text_item_id])
+    rater = User.find(params[:rater_id])
+    if text_item.present? && rater.present? 
+      rating = Rating.create(:rating => params[:rating], :rater => rater, :text_item => text_item)
+      if rating.valid?
+        render json: rating, status: 201
+      else
+        puts rating.errors.inspect
+        render json: { message: 'Unable to create rating' }, status: 500
+      end
     else
-      puts rating.errors.inspect
-      render json: { message: 'Unable to create rating' }, status: 500
+      render json: { message: 'Cannot find text item to rate' }, status: 401
     end
-  end
-
-  def show
-    puts params[:id]
-    render json: Rating.find(params[:id]), status: 200
   end
 
   def update
     puts params[:id]
-    render json: Rating.find(params[:id]).update(rating_params), status: 200
+    render json: Rating.update(:rating => params[:rating]), status: 200
   end
 
   def destroy

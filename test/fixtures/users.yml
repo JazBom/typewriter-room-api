@@ -1,9 +1,10 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+jess:
+  id: 1
+  name: jess
+  password_digest: blah
 
-one:
-  [name: 
-  password: 
-
-two:
-  [name: 
-  password: 
+colin:
+  id: 2
+  name: colin
+  password_digest: meh
