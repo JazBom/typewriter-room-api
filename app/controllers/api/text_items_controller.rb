@@ -1,18 +1,20 @@
 class Api::TextItemsController < ApplicationController
   def index
-    if 
-      # check if query parameter coming in, otherwise get all
-      render json: TextItem.where(...), status: 200
-    else
-      render json: TextItem.all, status: 200
-    end
-    # published = params[:published]
-    # user_id = params[:user_id]
-    # render json: TextItem.where(:published => published, :writer_id => user_id), status: 200
+    all_text_items = TextItem.includes(:ratings, :writer, :inspiration).all
+    render json: all_text_items, include: [:ratings, :writer, :inspiration], status: 200
+    # create a route for published text items only
+    # published = params[:published] - where boolean = true
+    # render json: TextItem.where(published: published), status: 200
+
+    # create route for the MyPages, for text items only written by the user loggedin
+    # user_id = params[:user_id] #some way of checking this through who is loggedin
+    # render json: TextItem.where(writer_id: user_id), status: 200
   end
 
   def create
-    text_item = TextItem.create(text_item_params)
+    writer = User.find(params[:writer_id])
+    inspiration = Inspiration.find(params[:inspiration_id])
+    text_item = TextItem.create(text: text_item_params[:text], writer: writer, inspiration: inspiration, published: text_item_params[:published])
     if text_item.valid?
       render json: text_item, status: 201
     else
@@ -23,7 +25,7 @@ class Api::TextItemsController < ApplicationController
 
   def show
     puts params[:id]
-    text_item = TextItem.include(:ratings, :writer, :inspiration).find(params[:id])
+    text_item = TextItem.includes(:ratings, :writer, :inspiration).find(params[:id])
     if text_item.present?
       render json: text_item, status: 200
     else
