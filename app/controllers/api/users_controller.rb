@@ -1,4 +1,6 @@
 class Api::UsersController < ApplicationController
+  skip_before_action :user_valid, :only [:create]
+
   def index
     render json: User.all, status: 200
   end
