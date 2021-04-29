@@ -1,16 +1,5 @@
 class Api::TextItemsController < ApplicationController
-  def index
-    all_text_items = TextItem.includes(:ratings, :writer, :inspiration).all
-    render json: all_text_items, include: [:ratings, :writer, :inspiration], status: 200
-    # create a route for published text items only
-    # published = params[:published] - where boolean = true
-    # render json: TextItem.where(published: published), status: 200
-
-    # create route for the MyPages, for text items only written by the user loggedin
-    # user_id = params[:user_id] #some way of checking this through who is loggedin
-    # render json: TextItem.where(writer_id: user_id), status: 200
-  end
-
+ 
   def create
     writer = User.find(params[:writer_id])
     inspiration = Inspiration.find(params[:inspiration_id])
@@ -21,6 +10,22 @@ class Api::TextItemsController < ApplicationController
       puts text_item.errors.inspect
       render json: { message: 'Unable to create text item.' }, status: 500
     end
+  end
+
+  def index
+    all_text_items = TextItem.includes(:ratings, :writer, :inspiration).all
+    render json: all_text_items, include: [:ratings, :writer, :inspiration], status: 200
+  end
+
+  def my_items
+    my_user_id = @current_user.id
+    my_text_items = TextItem.includes(:ratings, :writer, :inspiration).find(writer_id: my_user_id)
+    render json: my_text_items, include: [:ratings, :writer, :inspiration], status: 200
+  end
+   
+  def published
+    published_text_items = TextItem.includes(:ratings, :writer, :inspiration).find_by(published: true)
+    render json: published_text_items, include: [:ratings, :writer, :inspiration], status: 200
   end
 
   def show
