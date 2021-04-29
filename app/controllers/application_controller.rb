@@ -1,27 +1,39 @@
 class ApplicationController < ActionController::API
-    # before_action :user_valid
-    
+    before_action :user_valid
+    attr_accessor :current_user
+
     def encode_token(user_id)
-      JWT.encode user_id, nil, 'none'
+      token_payload = { "user_id": user_id }
+      JWT.encode token_payload, Rails.application.credentials.secret_key_base, 'HS256'
     end
   
     def decode_token
-      auth_token = request.headers['token']
-      if auth_token
+      encoded_auth_token = request.headers['token']
+      if encoded_auth_token
         begin
-          JWT.decode auth_token, nil, false
-        rescue StandardError
+          decoded_auth_token = JWT.decode encoded_auth_token, Rails.application.credentials.secret_key_base, true
+          puts "decoded token:"
+          puts decoded_auth_token
+          decoded_auth_token
+        rescue JWT::DecodeError
+          puts "Error decoding the JWT token!"
           nil
         end
       end
     end
   
     def user_valid
-      valid = decode_token
-      if valid
-        true
-      else
-        render json: { message: 'Unauthorized' }, status: :unauthorized
-      end
+      valid_token = decode_token
+        if valid_token && valid_token[0]['user_id'].present?
+          @current_user = User.find(valid_token[0]['user_id'])
+            if @current_user.present?
+              true
+            else
+              render json: { message: 'Unauthorized' }, status: :unauthorized
+            end
+        else
+          render json: { message: 'Unauthorized' }, status: :unauthorized
+        end
     end
-  end
+
+end
