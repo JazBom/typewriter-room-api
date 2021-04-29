@@ -19,12 +19,12 @@ class Api::TextItemsController < ApplicationController
 
   def my_items
     my_user_id = @current_user.id
-    my_text_items = TextItem.includes(:ratings, :writer, :inspiration).find(writer_id: my_user_id)
+    my_text_items = TextItem.where(writer_id: my_user_id).includes(:ratings, :writer, :inspiration)
     render json: my_text_items, include: [:ratings, :writer, :inspiration], status: 200
   end
    
   def published
-    published_text_items = TextItem.includes(:ratings, :writer, :inspiration).find_by(published: true)
+    published_text_items = TextItem.where(published: true).includes(:ratings, :writer, :inspiration)
     render json: published_text_items, include: [:ratings, :writer, :inspiration], status: 200
   end
 
