@@ -3,20 +3,20 @@ class ApplicationController < ActionController::API
     attr_accessor :current_user
 
     def encode_token(user_id)
-      token_payload = { "user_id": user_id }
+      token_payload = { 'user_id': user_id }
       JWT.encode token_payload, Rails.application.credentials.secret_key_base, 'HS256'
     end
   
     def decode_token
-      encoded_auth_token = request.headers['token']
+      encoded_auth_token = request.headers['Authorization']
       if encoded_auth_token
         begin
-          decoded_auth_token = JWT.decode encoded_auth_token, Rails.application.credentials.secret_key_base, true
-          puts "decoded token:"
+          decoded_auth_token = JWT.decode encoded_auth_token.gsub('Bearer ', ''), Rails.application.credentials.secret_key_base, true
+          puts 'decoded token:'
           puts decoded_auth_token
           decoded_auth_token
         rescue JWT::DecodeError
-          puts "Error decoding the JWT token!"
+          puts 'Error decoding the JWT token!'
           nil
         end
       end
