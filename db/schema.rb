@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_21_102755) do
+ActiveRecord::Schema.define(version: 2021_05_01_021240) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 2021_04_21_102755) do
     t.integer "inspiration_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "title"
     t.index ["inspiration_id"], name: "index_text_items_on_inspiration_id"
     t.index ["writer_id"], name: "index_text_items_on_writer_id"
   end

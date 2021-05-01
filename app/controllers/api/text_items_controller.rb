@@ -63,6 +63,6 @@ class Api::TextItemsController < ApplicationController
   end
 
   def text_item_params
-    params.require(:text_item).permit(:text, :published, :writer_id, :inspiration_id)
+    params.require(:text_item).permit(:title, :text, :published, :writer_id, :inspiration_id)
   end
 end
