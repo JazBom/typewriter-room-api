@@ -4,12 +4,13 @@ class Api::RatingsController < ApplicationController
   end
 
   def create
-    text_item = TextItem.find(params[:text_item_id])
-    rater = User.find(params[:rater_id])
+    text_item = TextItem.find(rating_params[:text_item_id])
+    rater = User.find(rating_params[:rater_id])
     if text_item.present? && rater.present? 
-      rating = Rating.create(:rating => params[:rating], :rater => rater, :text_item => text_item)
+      rating = Rating.create(:rating => rating_params[:rating], :rater => rater, :text_item => text_item)
+      avg_rating = Rating.where(text_item: text_item).average(:rating)
       if rating.valid?
-        render json: rating, status: 201
+        render json: avg_rating, status: 201
       else
         puts rating.errors.inspect
         render json: { message: 'Unable to create rating' }, status: 500
@@ -21,12 +22,12 @@ class Api::RatingsController < ApplicationController
 
   def update
     puts params[:id]
-    render json: Rating.update(:rating => params[:rating]), status: 200
+    render json: Rating.update(:rating => rating_params[:rating]), status: 200
   end
 
   def destroy
-    puts params[:id]
-    Rating.destroy(params[:id])
+    puts rating_params[:id]
+    Rating.destroy(rating_params[:id])
     render json: { message: 'Rating successfully destroyed.' }, status: 200
   end
 
