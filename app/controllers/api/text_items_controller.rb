@@ -14,25 +14,25 @@ class Api::TextItemsController < ApplicationController
 
   def index
     all_text_items = TextItem.includes(:ratings, :writer, :inspiration).all
-    render json: all_text_items, include: [:ratings, :writer, :inspiration], status: 200
+    render json: all_text_items, include: [:ratings, :writer, :inspiration], methods: :avg_rating, status: 200
   end
 
   def my_items
     my_user_id = @current_user.id
     my_text_items = TextItem.where(writer_id: my_user_id).includes(:ratings, :writer, :inspiration)
-    render json: my_text_items, include: [:ratings, :writer, :inspiration], status: 200
+    render json: my_text_items, include: [:ratings, :writer, :inspiration], methods: :avg_rating, status: 200
   end
    
   def published
     published_text_items = TextItem.where(published: true).includes(:ratings, :writer, :inspiration)
-    render json: published_text_items, include: [:ratings, :writer, :inspiration], status: 200
+    render json: published_text_items, include: [:ratings, :writer, :inspiration], methods: :avg_rating, status: 200
   end
 
   def show
     puts params[:id]
     text_item = TextItem.includes(:ratings, :writer, :inspiration).find(params[:id])
     if text_item.present?
-      render json: text_item, status: 200
+      render json: text_item, include: [:ratings, :writer, :inspiration], methods: :avg_rating, status: 200
     else
       render json: { message: 'Unable to display, text item does not exist.' }, status: 404
     end
