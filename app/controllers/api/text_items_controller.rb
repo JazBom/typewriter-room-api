@@ -3,7 +3,7 @@ class Api::TextItemsController < ApplicationController
   def create
     writer = User.find(params[:writer_id])
     inspiration = Inspiration.find(params[:inspiration_id])
-    text_item = TextItem.create(text: text_item_params[:text], writer: writer, inspiration: inspiration, published: text_item_params[:published])
+    text_item = TextItem.create(title: text_item_params[:title], text: text_item_params[:text], writer: writer, inspiration: inspiration, published: text_item_params[:published])
     if text_item.valid?
       render json: text_item, status: 201
     else
