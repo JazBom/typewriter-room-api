@@ -42,7 +42,7 @@ class Api::TextItemsController < ApplicationController
     puts params[:id]
     text_item = TextItem.find(params[:id])
     if text_item.present?
-      updated_text_item = text_item.update(text_item_params)
+      updated_text_item = text_item.update(text: text_item_params[:text])
       render json: updated_text_item, status: 200
     else
       render json: { message: 'Cannot find text item to update.' }, status: 404

@@ -5,13 +5,17 @@ class Api::InspirationsController < ApplicationController
 
   def create
     puts inspiration_params
-    inspiration = Inspiration.create(inspiration_params)
-    if inspiration.valid?
-      render json: inspiration, status: 201
-    else
-      puts inspiration.errors.inspect
-      render json: { message: 'Unable to create inspiration record.' }, status: 500
+    existing_inspo_item = Inspiration.find_by(sentenceOf: inspiration_params[:sentenceOf], sentence: inspiration_params[:sentence], imageUrl: inspiration_params[:imageUrl], imageOf: inspiration_params[:imageOf])
+    unless existing_inspo_item.present? 
+      inspiration = Inspiration.create(inspiration_params)
+      if inspiration.valid?
+        render json: inspiration, status: 201
+      else
+        puts inspiration.errors.inspect
+        render json: { message: 'Unable to create inspiration record.' }, status: 500
+      end
     end
+   render json: existing_inspo_item, status: 201
   end
 
   def show
