@@ -11,23 +11,20 @@ class Api::UsersController < ApplicationController
     if user.valid?
       render json: user, status: 201
     else
-      puts user.errors.inspect
+      # puts user.errors.inspect
       render json: { message: 'Unable to create user.' }, status: 500
     end
   end
 
   def show
-    puts params[:id]
     render json: User.find(params[:id]), status: 200
   end
 
   def update
-    puts params[:id]
     render json: User.find(params[:id]).update(user_params), status: 200
   end
 
   def destroy
-    puts params[:id]
     User.destroy(params[:id])
     render json: { message: 'Successfully deleted user.' }, status: 200
   end

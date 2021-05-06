@@ -7,7 +7,7 @@ class Api::TextItemsController < ApplicationController
     if text_item.valid?
       render json: text_item, status: 201
     else
-      puts text_item.errors.inspect
+      # puts text_item.errors.inspect
       render json: { message: 'Unable to create text item.' }, status: 500
     end
   end
@@ -29,7 +29,6 @@ class Api::TextItemsController < ApplicationController
   end
 
   def show
-    puts params[:id]
     text_item = TextItem.includes(:ratings, :writer, :inspiration).find(params[:id])
     if text_item.present?
       render json: text_item, include: [:ratings, :writer, :inspiration], methods: :avg_rating, status: 200
@@ -39,7 +38,6 @@ class Api::TextItemsController < ApplicationController
   end
 
   def update
-    puts params[:id]
     text_item = TextItem.find(params[:id])
     if text_item.present?
       updated_text_item = text_item.update(text: text_item_params[:text])
@@ -50,7 +48,6 @@ class Api::TextItemsController < ApplicationController
   end
 
   def publish
-    puts params[:id]
     text_item = TextItem.find(params[:id])
     if text_item.present?
       updated_text_item = text_item.update(published: text_item_params[:published])
@@ -61,7 +58,6 @@ class Api::TextItemsController < ApplicationController
   end
 
   def destroy
-    puts params[:id]
     TextItem.destroy(params[:id])
     render json: { message: 'Text item successfully deleted.' }, status: 200
   end

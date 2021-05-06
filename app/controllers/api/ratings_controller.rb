@@ -12,7 +12,7 @@ class Api::RatingsController < ApplicationController
       if rating.valid?
         render json: avg_rating, status: 201
       else
-        puts rating.errors.inspect
+        # puts rating.errors.inspect
         render json: { message: 'Unable to create rating' }, status: 500
       end
     else
@@ -21,12 +21,10 @@ class Api::RatingsController < ApplicationController
   end
 
   def update
-    puts params[:id]
     render json: Rating.update(:rating => rating_params[:rating]), status: 200
   end
 
   def destroy
-    puts rating_params[:id]
     Rating.destroy(rating_params[:id])
     render json: { message: 'Rating successfully destroyed.' }, status: 200
   end

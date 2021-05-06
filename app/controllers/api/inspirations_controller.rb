@@ -4,14 +4,13 @@ class Api::InspirationsController < ApplicationController
   end
 
   def create
-    puts inspiration_params
     existing_inspo_item = Inspiration.find_by(sentenceOf: inspiration_params[:sentenceOf], sentence: inspiration_params[:sentence], imageUrl: inspiration_params[:imageUrl], imageOf: inspiration_params[:imageOf])
     unless existing_inspo_item.present? 
       inspiration = Inspiration.create(inspiration_params)
       if inspiration.valid?
         render json: inspiration, status: 201
       else
-        puts inspiration.errors.inspect
+        # puts inspiration.errors.inspect
         render json: { message: 'Unable to create inspiration record.' }, status: 500
       end
     else
@@ -20,17 +19,14 @@ class Api::InspirationsController < ApplicationController
   end
 
   def show
-    puts params[:id]
     render json: Inspiration.find(params[:id]), status: 200
   end
 
   def update
-    puts params[:id]
     render json: Inspiration.find(params[:id]).update(inspiration_params), status: 200
   end
 
   def destroy
-    puts params[:id]
     Inspiration.destroy(params[:id])
     render json: { message: 'Successfully deleted inspiration record.' }, status: 200
   end
