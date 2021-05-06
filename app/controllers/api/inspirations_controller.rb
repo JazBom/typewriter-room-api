@@ -14,8 +14,9 @@ class Api::InspirationsController < ApplicationController
         puts inspiration.errors.inspect
         render json: { message: 'Unable to create inspiration record.' }, status: 500
       end
+    else
+      render json: existing_inspo_item, status: 201
     end
-   render json: existing_inspo_item, status: 201
   end
 
   def show
