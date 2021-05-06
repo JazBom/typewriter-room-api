@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     get 'text_items/my_items', to: 'text_items#my_items'
     get 'text_items/published', to: 'text_items#published'
     resources :text_items
+    put 'text_items/:id/publish', to: 'text_items#publish'
     resources :inspirations
     resources :ratings
     # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
