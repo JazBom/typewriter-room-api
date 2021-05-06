@@ -47,13 +47,17 @@ class Api::TextItemsController < ApplicationController
     else
       render json: { message: 'Cannot find text item to update.' }, status: 404
     end
-    # alternative
-    # writer = User.find(params[:writer_id])
-    # inspo = Inspiration.find(params[:inspiration_id])
-    # if (writer != nil && inspo != nil) 
-    #   text_item_to_update = TextItem.find(params[:id])
-    #   text_item_to_update.update(:text => params[:text], :published => params[:published], :writer => writer, :inspiration => inspo])
-    # end
+  end
+
+  def publish
+    puts params[:id]
+    text_item = TextItem.find(params[:id])
+    if text_item.present?
+      updated_text_item = text_item.update(published: text_item_params[:published])
+      render json: updated_text_item, status: 200
+    else
+      render json: { message: 'Cannot find text item to update.' }, status: 404
+    end
   end
 
   def destroy
