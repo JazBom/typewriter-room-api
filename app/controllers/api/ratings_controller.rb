@@ -24,7 +24,6 @@ class Api::RatingsController < ApplicationController
       else
       render json: { message: 'Cannot find text item to rate' }, status: 401
       end
-    # render json: avg_rating, status: 201
   end
 
   def update
