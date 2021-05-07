@@ -6,22 +6,29 @@ class Api::RatingsController < ApplicationController
   def create
     text_item = TextItem.find(rating_params[:text_item_id])
     rater = User.find(rating_params[:rater_id])
-    if text_item.present? && rater.present? 
-      rating = Rating.create(:rating => rating_params[:rating], :rater => rater, :text_item => text_item)
-      avg_rating = Rating.where(text_item: text_item).average(:rating)
-      if rating.valid?
-        render json: avg_rating, status: 201
+      if text_item.present? && rater.present?
+        existing_rating = Rating.find_by(text_item: text_item, rater: rater)
+          unless existing_rating.present?
+          rating = Rating.create(rating: rating_params[:rating], rater: rater, text_item: text_item)
+          avg_rating = Rating.where(text_item: text_item).average(:rating)
+                  if rating.valid?
+                    render json: avg_rating, status: 201
+                  else
+                    puts rating.errors.inspect
+                    render json: { message: 'Unable to create rating' }, status: 500
+                  end
+          else
+          avg_rating = Rating.where(text_item: text_item).average(:rating)
+          render json: avg_rating, status: 201
+          end
       else
-        # puts rating.errors.inspect
-        render json: { message: 'Unable to create rating' }, status: 500
-      end
-    else
       render json: { message: 'Cannot find text item to rate' }, status: 401
-    end
+      end
+    # render json: avg_rating, status: 201
   end
 
   def update
-    render json: Rating.update(:rating => rating_params[:rating]), status: 200
+    render json: Rating.update(rating: rating_params[:rating]), status: 200
   end
 
   def destroy
