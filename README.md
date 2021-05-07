@@ -1,6 +1,7 @@
 # GENERAL
 
-# The Typewriter Room App - typewriter-room-API (for client, see 'typewriter-room-UI')
+# Typewriter Room App - typewriter-room-API 
+(for client, see 'typewriter-room-UI')
 
 **Overview**
 
