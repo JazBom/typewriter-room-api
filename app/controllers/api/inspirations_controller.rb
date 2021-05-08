@@ -11,14 +11,14 @@ class Api::InspirationsController < ApplicationController
       if inspiration.valid?
         render json: inspiration, status: 201
       else
-        # puts inspiration.errors.inspect
+        puts inspiration.errors.inspect
         render json: { message: 'Unable to create inspiration record.' }, status: 500
       end
     
     else
       render json: existing_inspo_item, status: 201
     end
-    
+
   end
 
   def show
